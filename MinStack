@@ -1,0 +1,66 @@
+class MinStack {
+    private Stack<Integer> stack;
+    private int min;
+
+    /** initialize your data structure here. */
+    public MinStack() {
+        stack = new Stack<Integer>();
+        
+    }
+    
+    public void push(int x) {
+        if(stack.empty()) {
+            min = x;
+            stack.push(x);
+        }else {
+            if(min > x) {
+                stack.push(x);
+                min = x;
+            }else{
+                stack.push(x);
+            }
+        }
+        
+    }
+    
+    public void pop() {
+        if (stack.peek() > min) {
+            stack.pop();
+        }else{
+            stack.pop();
+            int[] arr = new int[stack.size()];
+            min = Integer.MAX_VALUE;
+            int i = 0;
+            while(!stack.empty()) {
+                arr[i] = stack.peek();
+                stack.pop();
+                i++;
+            }
+            for(int j = arr.length - 1; j >= 0 ; j--){
+                System.out.println(j);
+                if(min > arr[j]) {
+                    min = arr[j];
+                }
+                stack.push(arr[j]);
+            }
+        }
+        
+    }
+    
+    public int top() {
+        return stack.peek();
+    }
+    
+    public int getMin() {
+        return min;
+    }
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
